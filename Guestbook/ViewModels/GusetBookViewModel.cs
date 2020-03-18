@@ -1,16 +1,14 @@
 ﻿using System;
 
-namespace Guestbook.Models
-
+namespace Guestbook.ViewModels
 {
-    public class GuestbookEntry
+    public class GusetBookViewModel
     {
         public  int Id { get; set; }
         
         public  string Mail { get; set; }
         public  string Name { get; set; }
         public  string Message { get; set; }
-        public DateTime? DateAdded { get; set; } = DateTime.Now;
-
+        public DateTime? DateAdded { get; set; }
     }
 }

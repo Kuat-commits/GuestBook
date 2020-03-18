@@ -1,29 +1,118 @@
-﻿@model IEnumerable<Guestbook.Models.GuestbookEntry>
- 
+﻿@using Microsoft.EntityFrameworkCore.Infrastructure
+@model IEnumerable<Guestbook.ViewModels.GusetBookViewModel>
+
 @{
     ViewBag.Title = "Гостевая книга";
 }
- 
-<h2>Гостевая книга</h2>
- 
-@using(Html.BeginForm("Create","Home",FormMethod.Post))
+
+
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post))
 {
-    <fieldset>
-        <legend>Добавить запись</legend>
-        Введите имя: <br /> <input type="text" name="Name" maxlength="50" />
-        <br />
-        Введите сообщение: <br/> 
-        <textarea name="Message" rows="7" cols="40" required>
-        </textarea> 
-        <br />
-        <input type="submit" value="Отправить" />
-    </fieldset>
-}
-<h3>Все записи</h3>
-@foreach (var item in Model) {
-    <div style="background-color:silver; padding:3px; margin:5px;">
-        <p>@item.Message</p>
-        <p>Добавил(а) <b>@item.Name</b>. Дата: @item.DateAdded</p>
+    <div class="container">
+        <div class="row mb-2">
+            <div class="card w-100 p-4">
+                <h2>Гостевая книга</h2>
+                <h5 class="card-title">Добавить запись</h5>
+                <div class="form-group">
+                    <label for="name">Введите имя: </label>
+                    <input type="text" class="form-control" name="Name" maxlength="50" required/>
+                </div>
+                <div class="form-group">
+                    <label for="email">Введите email:</label>
+                    <input type="email" class="form-control" name="Mail" maxlength="50" required/>
+                </div>
+                <div class="form-group">
+                    <label for="message">Введите сообщение:</label>
+                    <textarea name="Message" class="form-control" rows="7" cols="40" required></textarea>
+                </div>
+                <br/>
+                <input type="submit" class="btn btn-primary" value="Отправить"/>
+            </div>
+        </div>
     </div>
-     
 }
+
+<div class="container">
+    <div class="row mb-2">
+        <div class="card w-100 p-4">
+            <h3 class="card-title">Фильтр</h3>
+            <form action="/Home/Index" method="post">
+                <div class="form-inline form-group">
+                    <label class="control-label"> Имя: </label>
+                    <input name="Name" class="form-control ml-1 mr-1"/>
+                    <label class="control-label">Email: </label>
+                    <input name="Mail" class="form-control ml-1 mr-1"/>
+                    <input type="submit" value="Фильтр" class="btn btn-primary ml-2"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="card w-100 p-4">
+            <h3 class="card-title">Отзывы</h3>
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Mail</td>
+                        <td>@item.Message</td>
+                        <td>
+                            <a href="/home/edit?id=@item.Id" data-id="@item.Id" data-toggle="modal" data-target="#editModal" class="btn btn-success">Edit</a>
+                            <a href="/home/delete?id=@item.Id" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @*<div class="modal-body">
+                @using (Html.BeginForm("Edit", "Home", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <label for="name">Введите имя: </label>
+                        <input type="text" class="form-control" name="Name" maxlength="50" value="" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Введите email:</label>
+                        <input type="email" class="form-control" name="Mail" maxlength="50" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Введите сообщение:</label>
+                        <textarea name="Message" class="form-control" rows="7" cols="40" required></textarea>
+                    </div>
+                    <br/>
+                    <input type="submit" class="btn btn-primary" value="Отправить"/>
+                }
+            </div>*@
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

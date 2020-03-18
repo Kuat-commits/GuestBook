@@ -63,3 +63,4 @@ C:\Users\user\RiderProjects\Guestbook\Guestbook\obj\Debug\netcoreapp3.1\staticwe
 C:\Users\user\RiderProjects\Guestbook\Guestbook\obj\Debug\netcoreapp3.1\staticwebassets\Guestbook.StaticWebAssets.xml
 C:\Users\user\RiderProjects\Guestbook\Guestbook\obj\Debug\netcoreapp3.1\Guestbook.dll
 C:\Users\user\RiderProjects\Guestbook\Guestbook\obj\Debug\netcoreapp3.1\Guestbook.pdb
+C:\Users\user\RiderProjects\Guestbook\Guestbook\obj\Debug\netcoreapp3.1\Razor\Views\Home\Edit.cshtml.g.cs
